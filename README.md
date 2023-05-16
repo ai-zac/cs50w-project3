@@ -1,3 +1,7 @@
 # Project 3
+# This current branch is in a development status!!!
 
-Web Programming with Python and JavaScript
+## Todo:
+- [ ] Make a stable database model  
+
+And that is...
