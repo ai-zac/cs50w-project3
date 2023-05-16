@@ -1,5 +1,15 @@
 {% extends "orders/base.html" %}
 
 {% block body %}
-  {{ menu }}
+  <ol>
+  {% for item in menu %}
+      <li>
+        <ul>
+          <li>{{ item.id_section }}</li>
+          <li>{{ item.name }}</li>
+        </ul>
+      </li>
+      <br>
+  {% endfor %}
+  </ol>
 {% endblock body %}

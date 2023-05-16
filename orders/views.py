@@ -1,11 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from .models import Item
+from .models import Menu
 
 # Create your views here.
 def index(request):
     context = {
-        "menu": Item.objects.get()
+        "menu": Menu.objects.all()
     }
     return render(request, "orders/index.html", context)

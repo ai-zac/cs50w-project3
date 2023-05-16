@@ -7,26 +7,48 @@ class User(models.Model):
     email = models.CharField(max_length=45)
     password = models.CharField(max_length=100)
 
+    def __str__(self):
+        return f"{self.firts_name} | {self.last_name}"
 
-class ItemType(models.Model):
+
+class MenuSection(models.Model):
     name = models.CharField(max_length=30)
 
     def __str__(self):
-        return f"{self.id}: {self.name}"
+        return f"{self.name}"
 
 
-class Item(models.Model):
-    id_type = models.ForeignKey(ItemType, on_delete=models.CASCADE)
+class Menu(models.Model):
+    id_section = models.ForeignKey(MenuSection, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    default_price = models.DecimalField(max_digits=5, decimal_places=2,default=0.0, null=True)
-    second_price = models.DecimalField(max_digits=5, decimal_places=2, default=0.0, null=True)
 
     def __str__(self):
-        return f"ID={self.id}; TYPE_ID={self.id_type}; name={self.name}; default_price={self.default_price}; second_price={self.second_price}"
+        return f"{self.id_section} | {self.name}"
+
+
+class PizzasMenu(models.Model):
+    id_section = models.ForeignKey(MenuSection, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    toppings = models.ManyToManyField(Menu)
+
+
+class Topping(models.Model):
+    topping = models.CharField(max_length=50)
+
+
+class TypePrice(models.Model):
+    type = models.CharField(max_length=15)
+
+
+class Price(models.Model):
+    id_item = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    id_type = models.ForeignKey(TypePrice, on_delete=models.CASCADE)
+    default_price = models.DecimalField(max_digits=5, decimal_places=2,default=0.0, null=True)
+
 
 class Cart(models.Model):
     id_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    items = models.ManyToManyField(Item)
+    items = models.ManyToManyField(Menu)
 
 
 class Order(models.Model):
