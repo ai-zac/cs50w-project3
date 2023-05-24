@@ -9,17 +9,16 @@ class AllUser(admin.ModelAdmin):
 
 @admin.register(Menu)
 class AllMenu(admin.ModelAdmin):
-    list_display = ("id", "item_type", "name", "default_price", "second_price")
+    list_display = ("id", "section", "name")
 
 
 @admin.register(MenuSection)
 class AllType(admin.ModelAdmin):
-    list_display = ("id", "name")
+    list_display = ("id", "section")
 
 
 @admin.register(Order)
 class AllOrder(admin.ModelAdmin):
-    list_display = ("id_cart", "order")
+    list_display = ("cart", "user")
 
 
-admin.site.register(Cart)

@@ -8,28 +8,27 @@ class User(models.Model):
     password = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.firts_name} | {self.last_name}"
+        return f"{self.firts_name} {self.last_name}"
 
 
 class MenuSection(models.Model):
-    name = models.CharField(max_length=30)
+    section = models.CharField(max_length=30)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.section}"
 
 
 class Menu(models.Model):
-    id_section = models.ForeignKey(MenuSection, on_delete=models.CASCADE)
+    section = models.ForeignKey(MenuSection, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"{self.id_section} | {self.name}"
+        return f"{self.section} | {self.name}"
 
 
-class PizzasMenu(models.Model):
-    id_section = models.ForeignKey(MenuSection, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
-    toppings = models.ManyToManyField(Menu)
+class ItemsWithToppings(models.Model):
+    item = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    amount = models.IntegerField(default=0)
 
 
 class Topping(models.Model):
@@ -41,17 +40,25 @@ class TypePrice(models.Model):
 
 
 class Price(models.Model):
-    id_item = models.ForeignKey(Menu, on_delete=models.CASCADE)
-    id_type = models.ForeignKey(TypePrice, on_delete=models.CASCADE)
-    default_price = models.DecimalField(max_digits=5, decimal_places=2,default=0.0, null=True)
+    item = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    type = models.ForeignKey(TypePrice, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
 
 
 class Cart(models.Model):
-    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    items = models.ManyToManyField(Menu)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    order_yet = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Cart: {self.id} <-> User: {self.user}"
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    item = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    item_name = models.CharField(max_length=80, blank=True)
 
 
 class Order(models.Model):
-    id_cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    order = models.BooleanField()
-
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
