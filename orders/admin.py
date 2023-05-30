@@ -1,6 +1,9 @@
 from django.contrib import admin
 
-from .models import CartItem, ItemSection, Item, Order, Cart, TypePrice, User, Topping, ItemsWithToppings, Price
+from .models import (Cart, CartItem, Item, ItemSection, ItemsWithToppings,
+                     Order, Price, Topping, TypePrice, User)
+
+
 # Register your models here.
 @admin.register(User)
 class Users(admin.ModelAdmin):
@@ -9,7 +12,7 @@ class Users(admin.ModelAdmin):
 
 @admin.register(Item)
 class Items(admin.ModelAdmin):
-    list_display = ("id", "section_name", "name")
+    list_display = ("id", "section", "name")
 
 
 @admin.register(Topping)
@@ -34,12 +37,12 @@ class TypePrices(admin.ModelAdmin):
 
 @admin.register(ItemSection)
 class Sections(admin.ModelAdmin):
-    list_display = ("id", "section_name")
+    list_display = ("id", "name")
 
 
 @admin.register(Order)
 class Orders(admin.ModelAdmin):
-    list_display = ("cart", "user")
+    list_display = ("cart",)
 
 
 @admin.register(Cart)

@@ -6,6 +6,6 @@ from .models import Item
 # Create your views here.
 def index(request):
     context = {
-        "menu": Item.objects.all()
+        "Subs": Item.objects.filter(section__name="Subs")
     }
     return render(request, "orders/index.html", context)

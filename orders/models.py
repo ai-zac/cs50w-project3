@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.response import select_template
 
 # Create your models here.
 class User(models.Model):
@@ -12,18 +13,18 @@ class User(models.Model):
 
 
 class ItemSection(models.Model):
-    section_name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30)
 
     def __str__(self):
-        return f"{self.section_name}"
+        return f"{self.name}"
 
 
 class Item(models.Model):
-    section_name = models.ForeignKey(ItemSection, on_delete=models.CASCADE)
+    section = models.ForeignKey(ItemSection, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"{self.section_name} | {self.name}"
+        return f"{self.name} ({self.section})"
 
 
 class ItemsWithToppings(models.Model):
@@ -31,7 +32,7 @@ class ItemsWithToppings(models.Model):
     amount = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.item} <-> {self.amount} topping(s)"
+        return f"{self.item} has {self.amount} topping(s) aviable"
 
 
 class Topping(models.Model):
@@ -54,7 +55,7 @@ class Price(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
 
     def __str__(self):
-        return f"{self.item}: price {self.category} ${self.price}"
+        return f"{self.item} = {self.category} price to ${self.price}"
 
 
 class Cart(models.Model):
@@ -72,9 +73,11 @@ class CartItem(models.Model):
     item_name = models.CharField(max_length=80, blank=True)
 
     def __str__(self):
-        return f"{self.cart} <- {self.item} ({self.item_name})"
+        return f"{self.cart} has {self.item_name}"
 
 
 class Order(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.cart} has a order"
