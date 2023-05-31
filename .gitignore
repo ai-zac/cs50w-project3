@@ -1,5 +1,6 @@
 env
 db.sqlite3
-orders/__pycache__/
-orders/migrations/__pycache__/
-pizza/__pycache__/
+orders/__pycache__/**
+orders/migrations/**
+pizza/__pycache__/**
+
