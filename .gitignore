@@ -3,4 +3,3 @@ db.sqlite3
 orders/__pycache__/**
 orders/migrations/**
 pizza/__pycache__/**
-

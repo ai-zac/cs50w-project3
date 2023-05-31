@@ -1,45 +1,39 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.template.response import select_template
 
+
 # Create your models here.
-class User(models.Model):
-    firt_name = models.CharField(max_length=45)
-    last_name = models.CharField(max_length=45)
-    email = models.CharField(max_length=45)
-    password = models.CharField(max_length=100)
+class MenuSection(models.Model):
+    title = models.CharField(max_length=30)
 
     def __str__(self):
-        return f"{self.firt_name} {self.last_name}"
+        return f"{self.title}"
 
 
-class ItemSection(models.Model):
-    name = models.CharField(max_length=30)
-
-    def __str__(self):
-        return f"{self.name}"
-
-
-class Item(models.Model):
-    section = models.ForeignKey(ItemSection, on_delete=models.CASCADE)
+class Plate(models.Model):
+    section = models.ForeignKey(
+        MenuSection, on_delete=models.CASCADE, related_name="plates"
+    )
     name = models.CharField(max_length=50)
 
     def __str__(self):
         return f"{self.name} ({self.section})"
 
 
-class ItemsWithToppings(models.Model):
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+class PlatesWithTopping(models.Model):
+    plate = models.ForeignKey(Plate, on_delete=models.CASCADE)
     amount = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.item} has {self.amount} topping(s) aviable"
+        return f"{self.plate} has {self.amount} topping(s) aviable"
 
 
 class Topping(models.Model):
-    topping = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"{self.topping}"
+        return f"{self.name}"
 
 
 class TypePrice(models.Model):
@@ -50,30 +44,30 @@ class TypePrice(models.Model):
 
 
 class Price(models.Model):
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    plate = models.ForeignKey(Plate, on_delete=models.CASCADE)
     category = models.ForeignKey(TypePrice, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
 
     def __str__(self):
-        return f"{self.item} = {self.category} price to ${self.price}"
+        return f"{self.plate} = {self.category} price to ${self.price}"
 
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.BooleanField(default=False)
-    items = models.ManyToManyField(Item, through="CartItem")
+    has_a_order = models.BooleanField(default=False)
+    plates = models.ManyToManyField(Plate, through="PlatesInCart")
 
     def __str__(self):
         return f"{self.user}'s cart{self.id}"
 
 
-class CartItem(models.Model):
+class PlatesInCart(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    item_name = models.CharField(max_length=80, blank=True)
+    plate = models.ForeignKey(Plate, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=80, blank=True)
 
     def __str__(self):
-        return f"{self.cart} has {self.item_name}"
+        return f"{self.cart} has {self.full_name}"
 
 
 class Order(models.Model):

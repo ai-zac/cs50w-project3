@@ -1,33 +1,28 @@
 from django.contrib import admin
 
-from .models import (Cart, CartItem, Item, ItemSection, ItemsWithToppings,
-                     Order, Price, Topping, TypePrice, User)
+from .models import (Cart, MenuSection, Order, Plate, PlatesInCart,
+                     PlatesWithTopping, Price, Topping, TypePrice)
 
 
 # Register your models here.
-@admin.register(User)
-class Users(admin.ModelAdmin):
-    list_display = ("id", "firt_name", "last_name", "email")
-
-
-@admin.register(Item)
-class Items(admin.ModelAdmin):
+@admin.register(Plate)
+class Plates(admin.ModelAdmin):
     list_display = ("id", "section", "name")
 
 
 @admin.register(Topping)
 class Toppings(admin.ModelAdmin):
-    list_display = ("topping",)
+    list_display = ("name",)
 
 
-@admin.register(ItemsWithToppings)
-class ItemsWithToppings(admin.ModelAdmin):
-    list_display = ("item", "amount")
+@admin.register(PlatesWithTopping)
+class PlatesWithToppings(admin.ModelAdmin):
+    list_display = ("plate", "amount")
 
 
 @admin.register(Price)
 class Prices(admin.ModelAdmin):
-    list_display = ("item", "category", "price")
+    list_display = ("plate", "category", "price")
 
 
 @admin.register(TypePrice)
@@ -35,9 +30,9 @@ class TypePrices(admin.ModelAdmin):
     list_display = ("category",)
 
 
-@admin.register(ItemSection)
+@admin.register(MenuSection)
 class Sections(admin.ModelAdmin):
-    list_display = ("id", "name")
+    list_display = ("id", "title")
 
 
 @admin.register(Order)
@@ -47,9 +42,9 @@ class Orders(admin.ModelAdmin):
 
 @admin.register(Cart)
 class Cart(admin.ModelAdmin):
-    list_display = ("id", "user", "status")
+    list_display = ("id", "user", "has_a_order")
 
 
-@admin.register(CartItem)
-class ItemsInCart(admin.ModelAdmin):
-    list_display = ("cart", "item", "item_name")
+@admin.register(PlatesInCart)
+class PlatesInCart(admin.ModelAdmin):
+    list_display = ("cart", "plate", "full_name")
