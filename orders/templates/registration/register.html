@@ -1,0 +1,12 @@
+{% extends "registration/base.html" %}
+
+{% block content %}
+{% if not isValid %}
+  Invalid credentials
+{% endif %}
+<form action="{% url 'orders:register' %}" method="post">
+  {% csrf_token %}
+  {{ UserCreationForm }}
+  <button type="submit">SUBMIT</button>
+</form>
+{% endblock %}
