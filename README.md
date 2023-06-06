@@ -1,6 +1,8 @@
-# This current branch is in a development status!!!
+# Project3 - Pizza
 
 ### Todo:
-- [ ] Make a stable database model  
+- [x] Make a stable database model  
+- [x] Make a login system
+- [ ] Reorder directory's files
 
 And that is...
