@@ -1,6 +1,7 @@
 {% extends "orders/base.html" %}
 
 {% block body %}
+  <a href="{% url 'orders:logout' %}">Logout</a>
   <ol>
   {% for item in menu %}
       <li>
