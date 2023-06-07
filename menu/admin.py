@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Plate, PlatesWithTopping, Price, Topping, TypePrice, Section
+from .models import Plate, PlatesWithTopping, Price, Topping, Section
 
 
 # Register your models here.
@@ -22,11 +22,6 @@ class PlatesWithToppings(admin.ModelAdmin):
 @admin.register(Price)
 class Prices(admin.ModelAdmin):
     list_display = ("plate", "category", "price")
-
-
-@admin.register(TypePrice)
-class TypePrices(admin.ModelAdmin):
-    list_display = ("category",)
 
 
 @admin.register(Section)

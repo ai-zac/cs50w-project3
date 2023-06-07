@@ -33,16 +33,14 @@ class Topping(models.Model):
         return f"{self.name}"
 
 
-class TypePrice(models.Model):
-    category = models.CharField(max_length=15)
-
-    def __str__(self):
-        return f"{self.category}"
-
-
 class Price(models.Model):
+    PRICES_CATEGORY = [
+        ("Normal", "Normal"),
+        ("Small", "Small"),
+        ("Large", "Large"),
+    ]
     plate = models.ForeignKey(Plate, on_delete=models.CASCADE)
-    category = models.ForeignKey(TypePrice, on_delete=models.CASCADE)
+    category = models.CharField(max_length=6, choices=PRICES_CATEGORY)
     price = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
 
     def __str__(self):
