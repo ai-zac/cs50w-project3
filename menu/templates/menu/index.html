@@ -17,7 +17,7 @@
     <ul>
     <!-- Each plate's price -->
     {% for price in plate.price_set.all %}
-      <li><a href="{% url 'orders:adding' plate.id %}">{{ price.category }}: ${{ price.price }}</a></li> 
+      <li><a href="{% url 'shopping:adding' plate.id %}">{{ price.category }}: ${{ price.price }}</a></li> 
     {% endfor %}
     </ul>
   {% endfor %}

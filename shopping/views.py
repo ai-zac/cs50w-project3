@@ -7,4 +7,4 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def add_to_cart(request, plate_id):
-    return render(request, "orders/cart.html", {"id": plate_id})
+    return render(request, "shopping/cart.html", {"id": plate_id})
