@@ -1,26 +1,23 @@
 {% extends "registration/base.html" %}
 
 {% block title %}
-  Register
+  Login
 {% endblock %}
 
 {% block body %}
-  <h1>Register</h1>
+  <h1>Login</h1>
   {% if not isValid %}
     Invalid credentials
   {% endif %}
 
-  <form action="{% url 'orders:register' %}" method="post">
+  <a href="{% url 'registration:register' %}">If not created account yet</a>
+  <form method="post" action="{% url 'registration:login' %}">
     {% csrf_token %}
     {{ form.username.label_tag }}
     {{ form.username }}
     <br>
     {{ form.password.label_tag }}
     {{ form.password }}
-    <br>
-    {{ form.password_confirm.label_tag }}
-    {{ form.password_confirm }}
-    <br>
-    <button type="submit">SUBMIT</button>
+    <input type="submit" value="login">
   </form>
 {% endblock %}

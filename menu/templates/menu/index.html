@@ -1,0 +1,22 @@
+{% extends "menu/base.html" %}
+
+{% block body %}
+<h1>Menu</h1>
+
+<a href="{% url 'registration:logout' %}">Logout</a>
+<br>
+<a href="{% url 'orders:index' %}">Orders</a>
+<ol>
+{% for section in menu %}
+  <li>
+    {{ section.title }}
+    <ul>
+    {% for plate in section.plates.all %}
+      <li>{{ plate.name }}</li>
+    {% endfor %}
+    </ul>
+  </li>
+  <br>
+{% endfor %}
+</ol>
+{% endblock body %}

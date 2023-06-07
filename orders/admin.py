@@ -1,40 +1,9 @@
 from django.contrib import admin
 
-from .models import (Cart, MenuSection, Order, Plate, PlatesInCart,
-                     PlatesWithTopping, Price, Topping, TypePrice)
+from .models import Cart, Order, PlatesInCart
 
 
 # Register your models here.
-@admin.register(Plate)
-class Plates(admin.ModelAdmin):
-    list_display = ("id", "section", "name")
-
-
-@admin.register(Topping)
-class Toppings(admin.ModelAdmin):
-    list_display = ("name",)
-
-
-@admin.register(PlatesWithTopping)
-class PlatesWithToppings(admin.ModelAdmin):
-    list_display = ("plate", "amount")
-
-
-@admin.register(Price)
-class Prices(admin.ModelAdmin):
-    list_display = ("plate", "category", "price")
-
-
-@admin.register(TypePrice)
-class TypePrices(admin.ModelAdmin):
-    list_display = ("category",)
-
-
-@admin.register(MenuSection)
-class Sections(admin.ModelAdmin):
-    list_display = ("id", "title")
-
-
 @admin.register(Order)
 class Orders(admin.ModelAdmin):
     list_display = ("cart",)
