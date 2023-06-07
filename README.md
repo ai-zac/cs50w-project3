@@ -1,9 +1,10 @@
-# THIS BRANCH IS IN DEVELOPMENT STATUS!!!
+# THIS PROJECT IS IN DEVELOPMENT STATUS!!!
 ## Project3 - Pizza - CS50w
 
 ### Todo:
 - [x] Make a stable database model  
 - [x] Make a login system
-- [ ] Reorder directory's files
+- [x] Reorder directory's files
+- [ ] Make carts & orders system
 
 And that is... actually.
