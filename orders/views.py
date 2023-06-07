@@ -6,5 +6,5 @@ from django.contrib.auth.decorators import login_required
 
 
 @login_required
-def index(request):
-    return render(request, "orders/index.html")
+def add_to_cart(request, plate_id):
+    return render(request, "orders/cart.html", {"id": plate_id})

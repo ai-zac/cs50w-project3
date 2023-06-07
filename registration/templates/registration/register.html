@@ -10,6 +10,7 @@
     Invalid credentials
   {% endif %}
 
+  <a href="{% url 'registration:login' %}">If you have already an account</a>
   <form action="{% url 'registration:register' %}" method="post">
     {% csrf_token %}
     {{ form.username.label_tag }}

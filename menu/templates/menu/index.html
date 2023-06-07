@@ -5,17 +5,23 @@
 
 <a href="{% url 'registration:logout' %}">Logout</a>
 <br>
-<a href="{% url 'orders:index' %}">Orders</a>
+
 <ol>
+<!-- Each menu's section -->
 {% for section in menu %}
-  <li>
-    {{ section.title }}
+  <li>{{ section.title }}</li>
+  <ul>
+  <!-- Each section's plate -->
+  {% for plate in section.plates.all %}
+    <li>{{ plate.name }}</li>
     <ul>
-    {% for plate in section.plates.all %}
-      <li>{{ plate.name }}</li>
+    <!-- Each plate's price -->
+    {% for price in plate.price_set.all %}
+      <li><a href="{% url 'orders:adding' plate.id %}">{{ price.category }}: ${{ price.price }}</a></li> 
     {% endfor %}
     </ul>
-  </li>
+  {% endfor %}
+  </ul>
   <br>
 {% endfor %}
 </ol>
