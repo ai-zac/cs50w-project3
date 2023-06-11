@@ -6,6 +6,13 @@
 
 {% block body %}
   <h1>Adding a plate</h1>
-  <p>yeah, you got it, plate with id: {{ id }}</p>
+  <p>yeah, you got it, plate: {{ plate }}, id: {{ id }}</p>
+  <br>
+  <h2>Testign form</h2>
+{% for field in form %}
+  {{ field.label }}
+  {{ field }}
+  <br>
+{% endfor %}
 {% endblock %}
 

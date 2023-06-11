@@ -6,8 +6,8 @@ from menu.models import Plate
 # Create your models here.
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    has_a_order = models.BooleanField(default=False)
     plates = models.ManyToManyField(Plate, through="PlatesInCart")
+    has_a_order = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.user}'s cart{self.id}"
