@@ -19,7 +19,7 @@ class Plate(models.Model):
 
 
 class PlatesWithTopping(models.Model):
-    plate = models.ForeignKey(Plate, on_delete=models.CASCADE)
+    plate = models.ForeignKey(Plate, on_delete=models.CASCADE, related_name="toppings_aviable")
     amount = models.IntegerField(default=0)
 
     def __str__(self):

@@ -8,11 +8,23 @@
   <h1>Adding a plate</h1>
   <p>yeah, you got it, plate: {{ plate }}, id: {{ id }}</p>
   <br>
-  <h2>Testign form</h2>
-{% for field in form %}
-  {{ field.label }}
-  {{ field }}
-  <br>
-{% endfor %}
+
+  <form action="/add" method="post">
+    {{ form.item.label }}
+    {{ form.item }}
+    <br>
+    {{ form.amount.label }}
+    {{ form.amount }}
+    <br>
+
+  {# If the current plate has aviable "x" items, show "x" input(s) #}
+  {% for i in ""|ljust:amount_aviable_toppings %}
+    <select name="item{{ forloop.counter }}">
+    {% for item in toppings %}
+      <option value="{{ item.id }}">{{ item.name }}</option> 
+    {% endfor %} 
+     </select>
+  {% endfor %}
+  </form>
 {% endblock %}
 
