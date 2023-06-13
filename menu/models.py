@@ -19,11 +19,11 @@ class Plate(models.Model):
 
 
 class PlatesWithTopping(models.Model):
-    plate = models.ForeignKey(Plate, on_delete=models.CASCADE, related_name="toppings_aviable")
+    plate = models.ForeignKey(Plate, on_delete=models.CASCADE, related_name="toppings_available")
     amount = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.plate} has {self.amount} topping(s) aviable"
+        return f"{self.plate} has {self.amount} topping(s) available"
 
 
 class Topping(models.Model):

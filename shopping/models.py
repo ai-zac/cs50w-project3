@@ -3,6 +3,7 @@ from django.db import models
 
 from menu.models import Plate
 
+
 # Create your models here.
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
