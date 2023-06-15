@@ -1,24 +1,57 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 from django.utils.translation import gettext_lazy as _
 
 from menu.models import Price, Topping
 from shopping.forms import addItemForm
-from shopping.models import Cart, PlatesInCart
+from shopping.models import Cart, Order, PlatesInCart
+
+
+@login_required
+def myorders(request):
+    # Get user's cart items
+    orders = Order.objects.filter(user=request.user)
+
+    context = {
+        "orders": orders
+    }
+
+    return render(request, "shopping/myorders.html", context)
+
+
+@login_required
+def createOrder(request, cart_id):
+    cart = get_object_or_404(Cart, id=cart_id)
+    cart.has_a_order = True
+    cart.save()
+
+    cart_price = Cart.get_total_price(cart_id)
+    order = Order(user=request.user, cart=cart, price=cart_price)
+    order.save()
+
+    new_cart = Cart(user=request.user)
+    new_cart.save()
+    return HttpResponseRedirect(reverse("shopping:mycart"))
+
 
 @login_required
 def mycart(request):
+    # Get user's cart items
     user_cart, created = Cart.objects.exclude(has_a_order=True).get_or_create(user=request.user)
+    items_cart = PlatesInCart.objects.filter(cart=user_cart)
 
     context = {
-        "cart": user_cart
+        "id_cart": user_cart.id,
+        "cart": items_cart,
     }
 
     return render(request, "shopping/mycart.html", context)
+
 
 @login_required
 @require_POST
@@ -53,13 +86,15 @@ def add(request):
             cart=user_cart,
             plate=item,
             full_name=full_name,
-            amount=int(form["amount"])
+            amount=int(form["amount"]),
+            price=int(form["amount"]) * float(item.price),
         )
         add.save()
     else:
         # For those who modify the HTML >:(
         return HttpResponseBadRequest("Gilipollas") 
 
+    print()
     # Then redirect to menu
     return HttpResponseRedirect(reverse("menu:index"))
 

@@ -5,5 +5,11 @@
 {% endblock %}
 
 {% block body %}
-  {{ cart.plates }}
+<h1>You have those items in your current cart</h1>
+{% for item in cart %}
+  - {{ item.amount }}: ({{ item.plate.plate.section }}) {{ item.full_name }} cada una a: ${{ item.plate.price }} 
+  <br>
+{% endfor %}
+
+<button><a href="{% url 'shopping:createorder' id_cart %}">Añadir a una orden</a></button>
 {% endblock %}

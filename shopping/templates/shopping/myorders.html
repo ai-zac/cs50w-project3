@@ -1,0 +1,23 @@
+{% extends "shopping/base.html" %}
+
+{% block title %}
+  Myorders
+{% endblock %}
+
+{% block body %}
+<h1>You have those orders</h1>
+<ol>
+{% for order in orders %}
+  <li> order {{ forloop.counter }} </li>
+  <ul>
+  {% for item in order.cart.items.all %}
+    <li>{{ item.full_name }}</li>
+      <ul>
+      <li>{{ item.amount }} to ${{ item.price }}</li>
+      </ul>
+  {% endfor %}
+  </ul>
+  <br>
+{% endfor %}
+</ol>
+{% endblock %}
