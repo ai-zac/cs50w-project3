@@ -3,21 +3,33 @@
 {% block body %}
 <h1>Menu</h1>
 
-<a href="{% url 'registration:logout' %}">Logout</a>
+<nav>
+  <h4>registration</h4>
+  <ul>
+    <li><a href="{% url 'registration:logout' %}">Logout</a></li>
+  </ul>
+
+  <h4>shopping</h4>
+  <ul>
+    <li><a href="#">My cart</a></li>
+    <li><a href="#">My orders</a></li>
+  </ul>
+</nav>
 <br>
 
 <ol>
-<!-- Each menu's section -->
+{# Each menu's section #}
 {% for section in menu %}
   <li>{{ section.title }}</li>
   <ul>
-  <!-- Each section's plate -->
-  {% for plate in section.plates.all %}
+  {# Each section's plate #}
+  {% for plate in section.section_plates.all %}
     <li>{{ plate.name }}</li>
     <ul>
-    <!-- Each plate's price -->
-    {% for price in plate.price_set.all %}
-      <li><a href="{% url 'shopping:adding' plate.id %}">{{ price.category }}: ${{ price.price }}</a></li> 
+
+    {# Each plate's price #}
+    {% for price in plate.prices.all %}
+      <li><a href="{% url 'shopping:adding' price.id %}">{{ price.category }}: ${{ price.price }}</a></li> 
     {% endfor %}
     </ul>
   {% endfor %}

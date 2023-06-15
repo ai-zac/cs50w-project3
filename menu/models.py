@@ -10,7 +10,7 @@ class Section(models.Model):
 
 class Plate(models.Model):
     section = models.ForeignKey(
-        Section, on_delete=models.CASCADE, related_name="plates"
+        Section, on_delete=models.CASCADE, related_name="section_plates"
     )
     name = models.CharField(max_length=50)
 
@@ -19,7 +19,9 @@ class Plate(models.Model):
 
 
 class PlatesWithTopping(models.Model):
-    plate = models.ForeignKey(Plate, on_delete=models.CASCADE, related_name="toppings_available")
+    plate = models.ForeignKey(
+        Plate, on_delete=models.CASCADE, related_name="toppings_available"
+    )
     amount = models.IntegerField(default=0)
 
     def __str__(self):
@@ -39,7 +41,7 @@ class Price(models.Model):
         ("Small", "Small"),
         ("Large", "Large"),
     ]
-    plate = models.ForeignKey(Plate, on_delete=models.CASCADE)
+    plate = models.ForeignKey(Plate, on_delete=models.CASCADE, related_name="prices")
     category = models.CharField(max_length=6, choices=PRICES_CATEGORY)
     price = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
 

@@ -16,4 +16,4 @@ class Cart(admin.ModelAdmin):
 
 @admin.register(PlatesInCart)
 class PlatesInCart(admin.ModelAdmin):
-    list_display = ("cart", "plate", "full_name")
+    list_display = ("cart", "plate", "full_name", "amount")

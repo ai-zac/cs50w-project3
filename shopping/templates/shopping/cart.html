@@ -11,18 +11,26 @@
 
   <form action="{% url 'shopping:add' %}" method="post">
     {% csrf_token %}
-    {{ form.item_id }}
+    {{ form.plate_id }}
 
-    {{ form.item.label }}
-    {{ form.item }}
+    {{ form.plate.label }}
+    {{ form.plate }}
     <br>
+
     {{ form.amount.label }}
     {{ form.amount }}
     <br>
 
+    <label for="plate_price_id">${{ plate.price }}</label>
+    {{ form.item_id }}
+    <br>
+
+    {{ form.amount_toppings }}
+    <br>
+
   {# If the current plate has available "x" items, show "x" input(s) #}
-  {% for i in ""|ljust:amount_available_toppings %}
-    <select name="item{{ forloop.counter }}">
+  {% for i in ""|ljust:amount_toppings %}
+    <select name="topping_{{ forloop.counter0 }}">
     {% for item in toppings %}
       <option value="{{ item.id }}">{{ item.name }}</option> 
     {% endfor %} 
