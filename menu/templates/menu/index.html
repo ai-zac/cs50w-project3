@@ -1,21 +1,7 @@
-{% extends "menu/base.html" %}
+{% extends "layout.html" %}
 
 {% block body %}
 <h1>Menu</h1>
-
-<nav>
-  <h4>registration</h4>
-  <ul>
-    <li><a href="{% url 'registration:logout' %}">Logout</a></li>
-  </ul>
-
-  <h4>shopping</h4>
-  <ul>
-    <li><a href="{% url 'shopping:mycart' %}">My cart</a></li>
-    <li><a href="{% url 'shopping:myorders' %}">My orders</a></li>
-  </ul>
-</nav>
-<br>
 
 <ol>
 {# Each menu's section #}
@@ -29,7 +15,7 @@
 
     {# Each plate's price #}
     {% for price in plate.prices.all %}
-      <li><a href="{% url 'shopping:adding' price.id %}">{{ price.category }}: ${{ price.price }}</a></li> 
+      <li><a href="{% url 'shopping:addform' price.id %}">{{ price.category }}: ${{ price.price }}</a></li> 
     {% endfor %}
     </ul>
   {% endfor %}

@@ -1,4 +1,4 @@
-{% extends "shopping/base.html" %}
+{% extends "layout.html" %}
 
 {% block title %}
   Adding a plate
@@ -9,7 +9,7 @@
   <p>yeah, you got it, plate: {{ plate }}, id: {{ plate.id }}</p>
   <br>
 
-  <form action="{% url 'shopping:add' %}" method="post">
+  <form action="{% url 'shopping:additem' %}" method="post">
     {% csrf_token %}
     {{ form.plate_id }}
 
@@ -22,7 +22,7 @@
     <br>
 
     <label for="plate_price_id">${{ plate.price }}</label>
-    {{ form.item_id }}
+    {{ form.price_id }}
     <br>
 
     {{ form.amount_toppings }}
@@ -31,8 +31,8 @@
   {# If the current plate has available "x" items, show "x" input(s) #}
   {% for i in ""|ljust:amount_toppings %}
     <select name="topping_{{ forloop.counter0 }}">
-    {% for item in toppings %}
-      <option value="{{ item.id }}">{{ item.name }}</option> 
+    {% for topping in toppings %}
+      <option value="{{ topping.id }}">{{ topping.name }}</option> 
     {% endfor %} 
      </select>
   {% endfor %}

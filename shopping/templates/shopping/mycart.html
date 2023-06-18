@@ -1,4 +1,4 @@
-{% extends "shopping/base.html" %}
+{% extends "layout.html" %}
 
 {% block title %}
   Mycart
@@ -11,5 +11,5 @@
   <br>
 {% endfor %}
 
-<button><a href="{% url 'shopping:createorder' id_cart %}">Añadir a una orden</a></button>
+<button><a href="{% url 'shopping:createorder' cart_id %}">Añadir a una orden</a></button>
 {% endblock %}
