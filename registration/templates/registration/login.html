@@ -4,20 +4,37 @@
   Login
 {% endblock %}
 
+{% load widget_tweaks %}
 {% block body %}
   <h1>Login</h1>
-  {% if not isValid %}
-    Invalid credentials
-  {% endif %}
+
+  <form class="needs-validation was-validated" method="post" action="{% url 'registration:login' %}" novalidate>
+    {% csrf_token %}
+
+    {# Username #}
+    <div class="input-group mb-3">
+      <span class="input-group-text">@</span>
+      {% render_field form.username class+="form-control" placeholder=form.username.label required="" %}
+
+      {# Validation #}
+      <div class="invalid-feedback">
+        Please write an username.
+      </div>
+    </div>
+
+    {# Password #}
+    <div class="input-group mb-3">
+      <span class="input-group-text">?£#$</span>
+      {% render_field form.password class+="form-control" placeholder=form.password.label %}
+
+      {# Validation #}
+      <div class="invalid-feedback">
+        Please wrire a password.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">SUBMIT</button>
+  </form>
 
   <a href="{% url 'registration:register' %}">If not created account yet</a>
-  <form method="post" action="{% url 'registration:login' %}">
-    {% csrf_token %}
-    {{ form.username.label_tag }}
-    {{ form.username }}
-    <br>
-    {{ form.password.label_tag }}
-    {{ form.password }}
-    <input type="submit" value="login">
-  </form>
 {% endblock %}
