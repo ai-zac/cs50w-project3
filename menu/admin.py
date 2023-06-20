@@ -11,17 +11,17 @@ class Plates(admin.ModelAdmin):
 
 @admin.register(Topping)
 class Toppings(admin.ModelAdmin):
-    list_display = ("name",)
+    list_display = ("id", "name")
 
 
 @admin.register(PlatesWithTopping)
 class PlatesWithToppings(admin.ModelAdmin):
-    list_display = ("plate", "amount")
+    list_display = ("id", "plate", "amount")
 
 
 @admin.register(Price)
 class Prices(admin.ModelAdmin):
-    list_display = ("plate", "category", "price")
+    list_display = ("id", "plate", "category", "price")
 
 
 @admin.register(Section)

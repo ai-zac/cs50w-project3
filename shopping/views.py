@@ -110,7 +110,6 @@ def show_add_form(request, plate_price_id):
 
     # default form inputs
     input_default = {
-        "plate": plate_price.plate.name,
         "plate_id": plate_price.plate.id,
         "price_id": plate_price.id,
         "amount_toppings": amount_toppings,

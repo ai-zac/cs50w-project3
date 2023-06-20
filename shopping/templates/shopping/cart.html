@@ -6,34 +6,43 @@
 
 {% load widget_tweaks %}
 {% block body %}
-  <h1>Adding a plate</h1>
-
   <form action="{% url 'shopping:additem' %}" method="post">
-    {% csrf_token %}
-    {{ form.plate_id }}
-    {{ form.price_id }}
-    {{ form.amount_toppings }}
+    <div class="row">
+      <div class="card col-lg-5">
+        <div class="card-body">
+          <h2 class="card-title">Adding</h2>
+          <h4 class="card-subtitle">{{ plate.plate.section }}: {{ plate.plate.name }}</h5>
+            <h6 class="text-body-secondary">{{ plate.category }} - ${{ plate.price }}</h6>
 
-    <div class="input-group mb-3">
-      <span class="input-group-text">{{ form.plate.label }}:</span>
-      {% render_field form.plate class+="form-control" required="" %}
-      <span class="input-group-text">Your price:</span>
-      <input class="form-control" type="text" name="" value="{{ plate.price }}" disabled>
-      <span class="input-group-text">{{ form.amount.label }}:</span>
-      {% render_field form.amount class+="form-control" required="" %}
+          {% csrf_token %}
+          {{ form.plate_id }}
+          {{ form.price_id }}
+          {{ form.amount_toppings }}
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">{{ form.amount.label }}:</span>
+            {% render_field form.amount class+="form-control" required="" %}
+          </div>
+
+          {% if amount_toppings != 0 %}
+          <h5>Topping{{ amount_toppings|pluralize }}</h5>
+          {% endif %}
+
+          <div class="d-flex flex-row">
+            {# If the current plate has available "x" items, show "x" input(s) #}
+            {% for i in ""|ljust:amount_toppings %}
+            <select name="topping_{{ forloop.counter0 }}" class="form-select">
+              {% for topping in toppings %}
+              <option value="{{ topping.id }}">{{ topping.name }}</option> 
+              {% endfor %} 
+             </select>
+            {% endfor %}
+          </div>
+
+          <br>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
     </div>
-
-
-  {# If the current plate has available "x" items, show "x" input(s) #}
-  {% for i in ""|ljust:amount_toppings %}
-    <select name="topping_{{ forloop.counter0 }}">
-    {% for topping in toppings %}
-      <option value="{{ topping.id }}">{{ topping.name }}</option> 
-    {% endfor %} 
-     </select>
-  {% endfor %}
-    <br>
-    <button type="submit">Submit</button>
   </form>
 {% endblock %}
-
