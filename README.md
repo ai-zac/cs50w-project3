@@ -1,4 +1,3 @@
-# THIS BRANCH, YOU KNOW, IS EXPERIMENTAl
 ## Project3 - Pizza - CS50w
 
 ### Todo:
@@ -7,6 +6,7 @@
 - [x] Reorder directory's files
 - [x] Make carts & orders system
 - [x] Clean the code >:(
-- [ ] Add some FrontEnd, *lazy programmer*
+- [x] Add some FrontEnd, *lazy programmer*
+- [ ] Deploy >:D
 
 And that is... actually.
