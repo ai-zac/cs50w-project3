@@ -3,24 +3,32 @@
 {% block body %}
 <h1>Menu</h1>
 
-<ol>
-{# Each menu's section #}
-{% for section in menu %}
-  <li>{{ section.title }}</li>
-  <ul>
-  {# Each section's plate #}
-  {% for plate in section.section_plates.all %}
-    <li>{{ plate.name }}</li>
-    <ul>
-
-    {# Each plate's price #}
-    {% for price in plate.prices.all %}
-      <li><a href="{% url 'shopping:addform' price.id %}">{{ price.category }}: ${{ price.price }}</a></li> 
-    {% endfor %}
-    </ul>
+<div class="row" data-masonry="{&quot;percentPosition&quot;: true }"">
+  {# Each menu's section #}
+  {% for section in menu %}
+  <div class="col-sm-4 col-lg-2 mb-4">
+    <div class="section card">
+      <div class="card-body">
+        <h5 class="card-title">{{ section.title }}</h5>
+        <ol class="list-group list-group-numbered">
+          {# Each section's plate #}
+          {% for plate in section.section_plates.all %}
+          <li class="plate list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">{{ plate.name }}</div> 
+              <ul class="list-group">
+                {# Each plate's price #}
+                {% for price in plate.prices.all %}
+                <li class="price"><a href="{% url 'shopping:addform' price.id %}">{{ price.category }}: ${{ price.price }}</a></li> 
+                {% endfor %}
+              </ul>
+            </div>
+          </li>
+          {% endfor %}
+        </ol>
+      </div>
+    </div>
+  </div>
   {% endfor %}
-  </ul>
-  <br>
-{% endfor %}
-</ol>
+</div>
 {% endblock body %}
