@@ -4,29 +4,25 @@
   Adding a plate
 {% endblock %}
 
+{% load widget_tweaks %}
 {% block body %}
   <h1>Adding a plate</h1>
-  <p>yeah, you got it, plate: {{ plate }}, id: {{ plate.id }}</p>
-  <br>
 
   <form action="{% url 'shopping:additem' %}" method="post">
     {% csrf_token %}
     {{ form.plate_id }}
-
-    {{ form.plate.label }}
-    {{ form.plate }}
-    <br>
-
-    {{ form.amount.label }}
-    {{ form.amount }}
-    <br>
-
-    <label for="plate_price_id">${{ plate.price }}</label>
     {{ form.price_id }}
-    <br>
-
     {{ form.amount_toppings }}
-    <br>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text">{{ form.plate.label }}:</span>
+      {% render_field form.plate class+="form-control" required="" %}
+      <span class="input-group-text">Your price:</span>
+      <input class="form-control" type="text" name="" value="{{ plate.price }}" disabled>
+      <span class="input-group-text">{{ form.amount.label }}:</span>
+      {% render_field form.amount class+="form-control" required="" %}
+    </div>
+
 
   {# If the current plate has available "x" items, show "x" input(s) #}
   {% for i in ""|ljust:amount_toppings %}

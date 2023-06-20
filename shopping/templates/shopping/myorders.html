@@ -6,18 +6,27 @@
 
 {% block body %}
 <h1>You have those orders</h1>
-<ol>
+
+<div class="row" data-masonry="{&quot;percentPosition&quot;: true}"">
 {% for order in orders %}
-  <li> order {{ forloop.counter }} </li>
-  <ul>
-  {% for item in order.cart.items.all %}
-    <li>{{ item.full_name }}</li>
-      <ul>
-      <li>{{ item.amount }} to ${{ item.price }}</li>
-      </ul>
-  {% endfor %}
-  </ul>
-  <br>
+  <div class="col-sm-4 col-lg-2 mb-4">
+    <div class="card"> 
+      <div class="card-body">
+        <div class="card-title fs-4 fw-bold ">order no.{{ forloop.counter }}</div>
+        <ul class="list-group">
+        {% for item in order.cart.items.all %}
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">{{ item.full_name }}</div>
+              {{ item.amount }} plates at ${{ item.price }}
+            </div>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
 {% endfor %}
-</ol>
+</div>
+
 {% endblock %}

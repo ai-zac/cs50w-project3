@@ -61,11 +61,13 @@ class PlatesInCart(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    price = models.DecimalField(default=0.0, decimal_places=2, max_digits=4)
+    price = models.DecimalField(default=0.0, decimal_places=2, max_digits=10)
 
     @classmethod
     def add_new_order(cls, user, cart, price):
+        cart.has_a_order = True
         order = Order(user=user, cart=cart, price=price)
+        cart.save()
         order.save()
 
     def __str__(self):

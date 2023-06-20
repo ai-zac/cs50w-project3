@@ -24,7 +24,6 @@ def show_my_orders(request):
 def create_an_order(request, cart_id):
     # Change cart order status
     cart = get_object_or_404(Cart, id=cart_id)
-    Cart.change_status(cart)
 
     # Create new order with the cart and and its total price
     Order.add_new_order(request.user, cart, Cart.get_total_price(cart))

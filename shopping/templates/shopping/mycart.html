@@ -6,10 +6,20 @@
 
 {% block body %}
 <h1>You have those items in your current cart</h1>
-{% for item in cart %}
-  - {{ item.amount }}: ({{ item.plate.plate.section }}) {{ item.full_name }} cada una a: ${{ item.plate.price }} 
-  <br>
-{% endfor %}
 
-<button><a href="{% url 'shopping:createorder' cart_id %}">Añadir a una orden</a></button>
+<div class="row" data-masonry="{&quot;percentPosition&quot;: true}"">
+  {% for item in cart %}
+  <div class="col-sm-4 col-lg-2 mb-4">
+    <div class="card"> 
+      <div class="card-body">
+        <div class="card-title fw-bold">{{ item.amount }} {{ item.plate.plate.section }}{{ item.amount|pluralize }}</div>
+        "{{ item.full_name }}"
+        <span class="badge bg-secondary rounded-pill">each one to ${{ item.plate.price }}</span>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<button class="btn btn-primary"><a class="text-white text-decoration-none" href=" {% url 'shopping:createorder' cart_id %}">Añadir a una orden</a></button>
 {% endblock %}
