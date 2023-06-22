@@ -7,6 +7,6 @@
 - [x] Make carts & orders system
 - [x] Clean the code >:(
 - [x] Add some FrontEnd, *lazy programmer*
-- [ ] Deploy >:D
+- [x] Deploy >:D
 
 And that is... actually.
