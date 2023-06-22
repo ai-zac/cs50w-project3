@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "cs50w-project3"
+version = "0.1.0"
+description = ""
+authors = ["ai-zac <isaacjdv31@gmail.com>"]
+readme = "README.md"
+packages = [{include = "cs50w_project3"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "^4.2.2"
+django-widget-tweaks = "^1.4.12"
+whitenoise = {extras = ["brotli"], version = "^6.5.0"}
+dj-database-url = "^2.0.0"
+psycopg2-binary = "^2.9.6"
+gunicorn = "^20.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

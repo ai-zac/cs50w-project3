@@ -1,0 +1,20 @@
+databases:
+  - name: pizza-db
+    databaseName: pizza_db_4c81
+    user: pizza_db_4c81_user
+
+services:
+  - type: web
+    name: cs50w-project3-pizza
+    runtime: python
+    buildCommand: "poetry install"
+    startCommand: "gunicorn app:app --chdir ./app_dir"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: pizza-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
