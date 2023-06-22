@@ -8,5 +8,6 @@
 - [x] Clean the code >:(
 - [x] Add some FrontEnd, *lazy programmer*
 - [x] Deploy >:D
+- [ ] Upgrade README, explain the project
 
 And that is... actually.
